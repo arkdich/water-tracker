@@ -8,5 +8,44 @@
     <script defer src="ts/script.ts"></script>
     <title>Water Reminder</title>
   </head>
-  <body></body>
+  <body>
+    <div class="app">
+      <h1 class="app__title">Water Reminder</h1>
+      <div class="app__header">
+        My Goal is
+        <input
+          class="app__input"
+          type="number"
+          step="0.01"
+          value="2.5"
+          enterkeyhint="send"
+          autofocus
+        />
+        Liters
+        <!-- <span class="app__output">2L</span> -->
+        <button class="app__btn app__btn_ok"></button>
+        <!-- <button class="app__btn app__btn_change"></button> -->
+      </div>
+      <div class="glass">
+        <div class="glass_empty">
+          Let us know how much water you want to drink
+        </div>
+        <div class="glass_filled"></div>
+      </div>
+    </div>
+    <footer class="footer">
+      Icons made by
+      <a
+        class="footer__link"
+        href="https://www.flaticon.com/authors/roundicons"
+        target="_blank"
+        title="Roundicons"
+        >Roundicons</a
+      >
+      from
+      <a class="footer__link" href="https://www.flaticon.com/" title="Flaticon"
+        >flaticon.com</a
+      >
+    </footer>
+  </body>
 </html>

@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap');
+
+@import '_utilities';
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: -webkit-fill-available;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  background-image: linear-gradient(#49a8f5, #2198fa);
+  font-family: 'Mulish', sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8%;
+
+  &__title {
+    font-weight: 300;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+
+  &__input {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 38px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    font-family: inherit;
+    font-weight: inherit;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    outline: none;
+  }
+
+  &__output {
+  }
+
+  &__btn {
+    margin-left: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    background: transparent center no-repeat;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &_ok {
+      background-image: url('/src/img/confirm.svg');
+    }
+
+    &_change {
+      background-image: url('/src/img/shuffle.svg');
+      background-size: 25px 25px;
+    }
+  }
+}
+
+.glass {
+  height: 320px;
+  width: 150px;
+  background-color: #69b4f1;
+  color: #3494e4;
+  border: 3px solid #1990f1;
+  border-top: none;
+  border-radius: 6px 6px 45px 45px;
+  user-select: none;
+  overflow: hidden;
+
+  &_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: 0.3s ease-in-out;
+    color: #1679ca;
+    background-color: #fff;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  &_filled {
+    height: 100%;
+    background-color: #69b4f1;
+  }
+}
+
+.footer {
+  margin-top: auto;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  font-weight: 200;
+
+  &__link {
+    font-weight: 400;
+  }
+}
