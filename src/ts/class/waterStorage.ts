@@ -1,13 +1,11 @@
 import { Current } from '../interface/current';
-
-export class WaterStorage {
+class WaterStorage {
   private current: Current;
   private previous: Current[];
 
   constructor() {
     this.current = JSON.parse(
-      localStorage.getItem('_water-reminder_current') ??
-        `{ "date": "${new Date().toDateString()}", "goal": 0, "done": 0 }`
+      localStorage.getItem('_water-reminder_current') ?? `{}`
     );
 
     this.previous = JSON.parse(
@@ -28,8 +26,17 @@ export class WaterStorage {
     return this.previous;
   }
 
-  public setPrevious(value: Current[]): void {
-    this.previous = value;
-    localStorage.setItem('_water-reminder_previous', JSON.stringify(value));
+  public storeCurrent(value: Current): void {
+    this.previous.push(value);
+
+    localStorage.setItem(
+      '_water-reminder_previous',
+      JSON.stringify(this.previous)
+    );
+
+    this.current.date = '';
+    this.current.done = this.current.goal = 0;
   }
 }
+
+export const storage = new WaterStorage();
