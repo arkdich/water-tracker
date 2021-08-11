@@ -52,5 +52,6 @@ a {
   & .button-control,
   & .slider-control {
     opacity: 0;
+    transition: none;
   }
 }
