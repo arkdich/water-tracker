@@ -8,29 +8,47 @@
     <script defer src="ts/script.ts"></script>
     <title>Water Reminder</title>
   </head>
-  <body>
-    <div class="app">
-      <h1 class="app__title">Water Reminder</h1>
-      <div class="app__header">
-        My Goal is
-        <input
-          class="app__input"
-          type="number"
-          step="0.01"
-          value="2.5"
-          enterkeyhint="send"
-          autofocus
-        />
-        Liters
-        <!-- <span class="app__output">2L</span> -->
-        <button class="app__btn app__btn_ok"></button>
-        <!-- <button class="app__btn app__btn_change"></button> -->
+  <body class="controls-hidden">
+    <header class="title">Water Reminder</header>
+    <div class="header">
+      My Goal is
+      <input
+        class="header__input"
+        type="number"
+        step="0.01"
+        value="2.5"
+        enterkeyhint="send"
+        autofocus
+      />
+      Liters
+      <!-- <span class="header__output">2L</span> -->
+      <button class="header__btn header__btn_ok"></button>
+      <!-- <button class="header__btn header__btn_change"></button> -->
+    </div>
+    <div class="glass">
+      <div class="glass__empty">
+        Let us know how much water you want to drink
       </div>
-      <div class="glass">
-        <div class="glass_empty">
-          Let us know how much water you want to drink
-        </div>
-        <div class="glass_filled"></div>
+      <div class="glass__filled"></div>
+    </div>
+    <div class="button-control">
+      <button class="btn_control button-control__minus"></button>
+      <div class="button-control__counter">0</div>
+      <button class="btn_control button-control__plus"></button>
+    </div>
+    <div class="slider-control">
+      <input
+        type="range"
+        class="slider-control__slider"
+        min="0"
+        max="999"
+        step="25"
+        value="250"
+      />
+      <div class="btn-wrapper">
+        <button class="btn_control slider-control__delete"></button>
+        <div class="slider-control__ammount">250</div>
+        <button class="btn_control slider-control__add"></button>
       </div>
     </div>
     <footer class="footer">
