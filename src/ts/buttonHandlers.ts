@@ -1,6 +1,6 @@
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
-import { focusInput, showControls } from './utilities';
+import { focusInput, showControls, updateUI } from './utilities';
 
 export function goalConfirm(ev: MouseEvent): void {
   const target = ev.target as HTMLButtonElement;
@@ -29,6 +29,7 @@ export function goalConfirm(ev: MouseEvent): void {
   storage.setCurrent(current);
 
   header.innerHTML = renderProgress(current.done, current.goal);
+  updateUI();
 }
 
 export function goalChange(ev: MouseEvent): void {
@@ -40,4 +41,23 @@ export function goalChange(ev: MouseEvent): void {
   header.innerHTML = renderNewGoal();
 
   focusInput();
+}
+
+export function takeGlass(ev: MouseEvent): void {
+  const target = ev.target as HTMLButtonElement;
+  const current = storage.getCurrent();
+  const glassVolume = 200;
+
+  if (target.matches('.button-control__plus')) {
+    current.done += glassVolume;
+  }
+
+  if (target.matches('.button-control__minus')) {
+    if (current.done - glassVolume < 0) return;
+
+    current.done -= glassVolume;
+  }
+
+  storage.setCurrent(current);
+  updateUI();
 }

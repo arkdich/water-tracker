@@ -91,15 +91,25 @@ body {
 }
 
 .glass {
+  position: relative;
+  z-index: 10;
   height: 320px;
   width: 150px;
-  background-color: #69b4f1;
-  color: #3494e4;
   border: 3px solid #1990f1;
   border-top: none;
   border-radius: 6px 6px 45px 45px;
   user-select: none;
   overflow: hidden;
+
+  &__percentage {
+    position: absolute;
+    color: #3494e4;
+    background-color: transparent;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+  }
 
   &__empty {
     display: flex;
@@ -108,7 +118,6 @@ body {
     justify-content: center;
     height: 100%;
     transition: 0.3s ease-in-out;
-    color: #1679ca;
     background-color: #fff;
     font-size: 1rem;
     line-height: 1.2;

@@ -34,7 +34,7 @@ class WaterStorage {
       JSON.stringify(this.previous)
     );
 
-    this.current.date = '';
+    this.current.date = new Date().toDateString();
     this.current.done = this.current.goal = 0;
   }
 }
