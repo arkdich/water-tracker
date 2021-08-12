@@ -1,6 +1,11 @@
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
-import { focusInput, showControls, updateUI } from './utilities';
+import {
+  focusInput,
+  setSliderValueAndOutput,
+  showControls,
+  updateUI,
+} from './utilities';
 
 export function goalConfirm(ev: MouseEvent): void {
   const target = ev.target as HTMLButtonElement;
@@ -29,7 +34,9 @@ export function goalConfirm(ev: MouseEvent): void {
   storage.setCurrent(current);
 
   header.innerHTML = renderProgress(current.done, current.goal);
+
   updateUI();
+  setSliderValueAndOutput();
 }
 
 export function goalChange(ev: MouseEvent): void {
@@ -43,22 +50,34 @@ export function goalChange(ev: MouseEvent): void {
   focusInput();
 }
 
-export function takeGlass(ev: MouseEvent): void {
+export function takeWater(ev: MouseEvent): void {
   const target = ev.target as HTMLButtonElement;
 
   if (!target.matches('button')) return;
 
   const current = storage.getCurrent();
-  const glassVolume = 200;
+  let glassVolume = 200;
 
-  if (target.matches('.button-control__plus')) {
+  const sliderCont = target.closest('.slider-control');
+
+  if (sliderCont) {
+    const rangeInput = sliderCont.querySelector(
+      '.slider-control__slider'
+    ) as HTMLInputElement;
+    const inputValue = Number(rangeInput.value);
+
+    glassVolume = Number(inputValue);
+
+    storage.setSliderValue(inputValue);
+  }
+
+  if (target.matches('.button-control__plus, .slider-control__add')) {
     current.done += glassVolume;
   }
 
-  if (target.matches('.button-control__minus')) {
-    if (current.done - glassVolume < 0) return;
-
-    current.done -= glassVolume;
+  if (target.matches('.button-control__minus, .slider-control__delete')) {
+    if (current.done - glassVolume < 0) current.done = 0;
+    else current.done -= glassVolume;
   }
 
   storage.setCurrent(current);

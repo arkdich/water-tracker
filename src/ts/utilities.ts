@@ -14,9 +14,33 @@ export function focusInput(): void {
   headerInput.focus();
 }
 
+export function setSliderValueAndOutput(): void {
+  const slider = document.querySelector(
+    '.slider-control__slider'
+  ) as HTMLInputElement;
+  const sliderOutput = document.querySelector(
+    '.slider-control__ammount'
+  ) as HTMLInputElement;
+
+  const value = storage.getSliderValue().toString();
+
+  slider.value = value;
+  sliderOutput.innerText = value;
+}
+
+export function updateSliderValue(ev: Event): void {
+  const input = ev.target as HTMLInputElement;
+  const output = document.querySelector(
+    '.slider-control__ammount'
+  ) as HTMLDivElement;
+
+  output.innerText = input.value;
+}
+
 export function updateUI(): void {
-  updateTrack();
+  updateProggres();
   updateGlass();
+  updateGlassCounter();
 }
 
 export function updateGlass(): void {
@@ -35,12 +59,11 @@ export function updateGlass(): void {
   glassPerc.innerText = `${donePercent.toFixed(1)}%`;
 }
 
-function updateTrack(): void {
+function updateProggres(): void {
   const headerDone = document.querySelector('.header__done') as HTMLSpanElement;
   const current = storage.getCurrent();
 
   headerDone.innerText = current.done.toString();
-  updateGlassCounter();
 }
 
 function updateGlassCounter(): void {
@@ -49,5 +72,5 @@ function updateGlassCounter(): void {
   ) as HTMLDivElement;
   const current = storage.getCurrent();
 
-  glassCounter.innerText = (current.done / 200).toString();
+  glassCounter.innerText = (current.done / 200).toFixed(0);
 }

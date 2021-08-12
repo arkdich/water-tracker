@@ -1,10 +1,21 @@
-import { goalChange, goalConfirm, takeGlass } from './buttonHandlers';
+import { goalChange, goalConfirm, takeWater } from './buttonHandlers';
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
-import { showControls, updateUI } from './utilities';
+import {
+  setSliderValueAndOutput,
+  showControls,
+  updateSliderValue,
+  updateUI,
+} from './utilities';
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;
+const sliderControl = document.querySelector(
+  '.slider-control'
+) as HTMLDivElement;
+const slider = document.querySelector(
+  '.slider-control__slider'
+) as HTMLInputElement;
 const currentObj = storage.getCurrent();
 
 header.addEventListener('click', goalConfirm);
@@ -16,7 +27,10 @@ header.addEventListener('keyup', (ev) => {
   btn.click();
 });
 
-btnControl.addEventListener('click', takeGlass);
+btnControl.addEventListener('click', takeWater);
+sliderControl.addEventListener('click', takeWater);
+
+slider.addEventListener('input', updateSliderValue);
 
 if (!currentObj.date) {
   header.innerHTML = renderNewGoal();
@@ -24,11 +38,13 @@ if (!currentObj.date) {
   header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
   showControls(true);
   updateUI();
+  setSliderValueAndOutput();
 }
 
 if (currentObj.date && currentObj.date !== new Date().toDateString()) {
   storage.storeCurrent(currentObj);
   updateUI();
+  setSliderValueAndOutput();
 }
 
 // disabling zoom on dbltap
