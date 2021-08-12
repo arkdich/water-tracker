@@ -2,7 +2,7 @@ export function renderProgress(done: number, goal: number): string {
   return `
     <span class="header__done">${done}</span> of
     <span class="header__goal">${goal}</span> ml
-    <button class="header__btn header__btn_change"></button>`;
+    <button class="btn btn_control header__btn header__btn_change"></button>`;
 }
 
 export function renderNewGoal(): string {
@@ -16,5 +16,5 @@ export function renderNewGoal(): string {
     enterkeyhint="send"
     />
     Liters
-    <button class="header__btn header__btn_ok"></button>`;
+    <button class="btn btn_control header__btn header__btn_ok"></button>`;
 }
