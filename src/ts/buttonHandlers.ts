@@ -45,6 +45,9 @@ export function goalChange(ev: MouseEvent): void {
 
 export function takeGlass(ev: MouseEvent): void {
   const target = ev.target as HTMLButtonElement;
+
+  if (!target.matches('button')) return;
+
   const current = storage.getCurrent();
   const glassVolume = 200;
 

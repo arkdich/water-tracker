@@ -28,4 +28,8 @@ if (!currentObj.date) {
 
 if (currentObj.date && currentObj.date !== new Date().toDateString()) {
   storage.storeCurrent(currentObj);
+  updateUI();
 }
+
+// disabling zoom on dbltap
+document.body.addEventListener('dblclick', (ev) => ev.preventDefault());
