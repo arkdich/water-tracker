@@ -11,6 +11,11 @@ export function getDateString(start: Date, end: Date): string {
     .slice(4, 10)}`;
 }
 
+export function getFirstDate(): Date {
+  const date = storage.getPrevious()[0]?.date ?? storage.getCurrent().date;
+  return new Date(date);
+}
+
 export function focusInput(): void {
   const headerInput = document.querySelector(
     '.header__input'

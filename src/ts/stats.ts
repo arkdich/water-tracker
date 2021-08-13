@@ -1,15 +1,91 @@
 import Chart from '../../node_modules/chart.js/auto/auto.esm';
 import { storage } from './class/waterStorage';
+import { renderStats } from './components';
 import { Current } from './interface/current';
-import { getDateString } from './utilities';
+import { getDateString, getFirstDate } from './utilities';
 
-const stats = document.querySelector('.stats') as HTMLDivElement;
 let currentPage = 1;
+const firstDate = getFirstDate();
 let chart: Chart<'bar', { x: string; y: number }[], string>;
 
-stats.addEventListener('click', changePage);
+// PAGINATION NEEDS FIXING
 
-getPage(1);
+export function statsShow(): void {
+  const statsCont = document.createElement('div');
+  document.body.append(statsCont);
+
+  statsCont.outerHTML = renderStats();
+
+  const stats = document.querySelector('.stats') as HTMLDivElement;
+
+  stats.addEventListener('click', changePage);
+  document.body.addEventListener('click', statsClose);
+
+  getPage(1);
+}
+
+function statsClose(ev: MouseEvent): void {
+  const target = ev.target as HTMLElement;
+
+  if (!target.matches('.stats__close, .overlay')) return;
+
+  const stats = document.querySelector('.stats') as HTMLDivElement;
+  const overlay = document.querySelector('.overlay') as HTMLDivElement;
+
+  stats.remove();
+  overlay.remove();
+}
+
+function changePage(ev: MouseEvent): void {
+  const target = ev.target as HTMLButtonElement;
+
+  if (!target.matches('.stats__btn')) return;
+
+  if (target.matches('.stats__btn_left')) {
+    currentPage += 1;
+  }
+
+  if (target.matches('.stats__btn_right')) {
+    if (currentPage !== 1) currentPage -= 1;
+  }
+
+  getPage(currentPage);
+}
+
+function getPage(page: number): void {
+  const today = new Date();
+  const currentWeekDay = today.getDay() === 0 ? 1 : today.getDay() - 1;
+
+  let weekStart: Date;
+
+  const startingPoint = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - currentWeekDay
+  );
+
+  if (page === 1) {
+    weekStart = startingPoint;
+  } else {
+    weekStart = new Date(
+      startingPoint.getFullYear(),
+      startingPoint.getMonth(),
+      startingPoint.getDate() - 7 * (page - 1)
+    );
+  }
+
+  const weekEnd = new Date(
+    weekStart.getFullYear(),
+    weekStart.getMonth(),
+    weekStart.getDate() + 6
+  );
+
+  if (weekEnd < firstDate) return;
+
+  if (getPage.caller == changePage) chart.destroy();
+
+  renderWeek(weekStart, weekEnd);
+}
 
 function renderWeek(start: Date, end: Date): void {
   const ctx = document.querySelector('canvas') as HTMLCanvasElement;
@@ -53,54 +129,6 @@ function renderWeek(start: Date, end: Date): void {
       responsive: true,
     },
   });
-}
-
-function changePage(ev: MouseEvent): void {
-  const target = ev.target as HTMLButtonElement;
-
-  if (!target.matches('button')) return;
-
-  if (target.matches('.stats__btn_left')) {
-    currentPage += 1;
-  }
-
-  if (target.matches('.stats__btn_right')) {
-    if (currentPage !== 1) currentPage -= 1;
-  }
-
-  chart.destroy();
-  getPage(currentPage);
-}
-
-function getPage(page: number): void {
-  const today = new Date();
-  const currentWeekDay = today.getDay() === 0 ? 1 : today.getDay() - 1;
-
-  let weekStart: Date;
-
-  const startingPoint = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - currentWeekDay
-  );
-
-  if (page === 1) {
-    weekStart = startingPoint;
-  } else {
-    weekStart = new Date(
-      startingPoint.getFullYear(),
-      startingPoint.getMonth(),
-      startingPoint.getDate() - 7 * (page - 1)
-    );
-  }
-
-  const weekEnd = new Date(
-    weekStart.getFullYear(),
-    weekStart.getMonth(),
-    weekStart.getDate() + 6
-  );
-
-  renderWeek(weekStart, weekEnd);
 }
 
 function getWeek(start: Date, end: Date): Current[] {

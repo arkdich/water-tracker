@@ -18,3 +18,14 @@ export function renderNewGoal(): string {
     Liters
     <button class="btn btn_control header__btn header__btn_ok"></button>`;
 }
+
+export function renderStats(): string {
+  return `
+    <div class="stats">
+      <button class="btn btn_control stats__close"></button>
+      <canvas></canvas>
+      <button class="btn btn_control stats__btn stats__btn_left"></button>
+      <button class="btn btn_control stats__btn stats__btn_right"></button>
+    </div>
+    <div class="overlay"></div>`;
+}

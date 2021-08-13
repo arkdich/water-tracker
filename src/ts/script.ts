@@ -7,7 +7,7 @@ import {
   updateSliderValue,
   updateUI,
 } from './utilities';
-import './stats';
+import { statsShow } from './stats';
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;
@@ -17,6 +17,8 @@ const sliderControl = document.querySelector(
 const slider = document.querySelector(
   '.slider-control__slider'
 ) as HTMLInputElement;
+const btnStats = document.querySelector('.btn_stats') as HTMLButtonElement;
+
 const currentObj = storage.getCurrent();
 
 header.addEventListener('click', goalConfirm);
@@ -32,6 +34,8 @@ btnControl.addEventListener('click', takeWater);
 sliderControl.addEventListener('click', takeWater);
 
 slider.addEventListener('input', updateSliderValue);
+
+btnStats.addEventListener('click', statsShow);
 
 if (!currentObj.date) {
   header.innerHTML = renderNewGoal();
