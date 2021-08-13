@@ -1,26 +1,15 @@
 import Chart from '../../node_modules/chart.js/auto/auto.esm';
 import { storage } from './class/waterStorage';
 import { Current } from './interface/current';
+import { getDateString } from './utilities';
 
 const stats = document.querySelector('.stats') as HTMLDivElement;
 let currentPage = 1;
-let chart: Chart;
+let chart: Chart<'bar', { x: string; y: number }[], string>;
 
 stats.addEventListener('click', changePage);
 
-renderCurrentWeek();
-
-function renderCurrentWeek(): void {
-  const today = new Date(new Date().toDateString());
-  const currentWeekDay = today.getDay() === 0 ? 1 : today.getDay() - 1;
-  const weekStart = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - currentWeekDay
-  );
-
-  renderWeek(weekStart, today);
-}
+getPage(1);
 
 function renderWeek(start: Date, end: Date): void {
   const ctx = document.querySelector('canvas') as HTMLCanvasElement;
@@ -40,21 +29,28 @@ function renderWeek(start: Date, end: Date): void {
       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [
         {
-          label: 'Water consumed',
           data: data,
-          backgroundColor: ['rgba(255, 159, 64, 0.2)'],
-          borderColor: ['rgba(255, 159, 64, 1)'],
-          borderWidth: 1,
+          backgroundColor: ['#69b4f1'],
         },
       ],
     },
     options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
+      font: {
+        size: 13,
+        weight: '300',
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: getDateString(start, end),
+          font: { weight: '300', size: 17 },
+        },
+        legend: {
+          display: false,
         },
       },
+      maintainAspectRatio: false,
+      responsive: true,
     },
   });
 }
@@ -81,7 +77,6 @@ function getPage(page: number): void {
   const currentWeekDay = today.getDay() === 0 ? 1 : today.getDay() - 1;
 
   let weekStart: Date;
-  let weekEnd: Date;
 
   const startingPoint = new Date(
     today.getFullYear(),
@@ -91,22 +86,19 @@ function getPage(page: number): void {
 
   if (page === 1) {
     weekStart = startingPoint;
-    weekEnd = today;
   } else {
     weekStart = new Date(
       startingPoint.getFullYear(),
       startingPoint.getMonth(),
       startingPoint.getDate() - 7 * (page - 1)
     );
-
-    weekEnd = new Date(
-      weekStart.getFullYear(),
-      weekStart.getMonth(),
-      weekStart.getDate() + 6
-    );
   }
 
-  console.log(`start: ${weekStart}\n\nend: ${weekEnd}`);
+  const weekEnd = new Date(
+    weekStart.getFullYear(),
+    weekStart.getMonth(),
+    weekStart.getDate() + 6
+  );
 
   renderWeek(weekStart, weekEnd);
 }

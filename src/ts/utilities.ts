@@ -5,6 +5,12 @@ export function showControls(bool: boolean): void {
   document.body.classList.remove('controls-hidden');
 }
 
+export function getDateString(start: Date, end: Date): string {
+  return `${start.toDateString().slice(4, 10)} - ${end
+    .toDateString()
+    .slice(4, 10)}`;
+}
+
 export function focusInput(): void {
   const headerInput = document.querySelector(
     '.header__input'
