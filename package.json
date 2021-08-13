@@ -20,9 +20,25 @@
     "@parcel/transformer-sass": "^2.0.0-rc.0",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "autoprefixer": "^10.3.1",
     "eslint": "^7.32.0",
     "parcel": "^2.0.0-rc.0",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2",
     "typescript": "^4.3.5"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "overrideBrowserslist": [
+          "> 1%",
+          "last 4 versions",
+          "ie >= 9"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "chart.js": "^3.5.0"
   }
 }

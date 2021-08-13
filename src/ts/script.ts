@@ -7,6 +7,7 @@ import {
   updateSliderValue,
   updateUI,
 } from './utilities';
+import './stats';
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;

@@ -49,6 +49,11 @@ a {
     background-size: 32px 32px;
     border-radius: 50%;
   }
+
+  &_stats {
+    margin: 0px auto;
+    background-image: url('/src/img/bar-chart.svg');
+  }
 }
 
 .controls-hidden {
