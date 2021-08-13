@@ -131,6 +131,29 @@ body {
   background-color: #fff;
   box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
 
+  &__close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-image: url('/src/img/cancel-stats.svg');
+    background-size: 15px 15px;
+  }
+
+  &__btn {
+    position: absolute;
+    bottom: -60px;
+
+    &_left {
+      left: 32.5%;
+      background-image: url('/src/img/left-arrow.svg');
+    }
+
+    &_right {
+      right: 32.5%;
+      background-image: url('/src/img/right-arrow.svg');
+    }
+  }
+
   canvas {
     width: 100%;
     height: 100%;
