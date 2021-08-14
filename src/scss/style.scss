@@ -18,7 +18,7 @@ body {
 }
 
 .title {
-  margin-top: 5%;
+  margin-top: 20px;
   font-size: 2rem;
   font-weight: 300;
 }
@@ -188,4 +188,4 @@ body {
   }
 }
 
-@import '_controls';
+@import '_controls', '_media';

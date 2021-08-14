@@ -142,6 +142,11 @@ function renderWeek(start: Date, end: Date): void {
           display: false,
         },
       },
+      scales: {
+        y: {
+          suggestedMax: storage.getCurrent().goal,
+        },
+      },
       maintainAspectRatio: false,
       responsive: true,
     },
