@@ -3,6 +3,7 @@ class WaterStorage {
   private current: Current;
   private previous: Current[];
   private sliderValue: number;
+  private lastDrink: string;
 
   constructor() {
     this.current = JSON.parse(
@@ -16,6 +17,8 @@ class WaterStorage {
     this.sliderValue = JSON.parse(
       localStorage.getItem('_water-reminder_sliderValue') ?? '120'
     );
+
+    this.lastDrink = localStorage.getItem('_water-reminder_lastDrink') ?? '';
   }
 
   public getCurrent(): Current {
@@ -53,6 +56,18 @@ class WaterStorage {
   public setSliderValue(value: number): void {
     this.sliderValue = value;
     localStorage.setItem('_water-reminder_sliderValue', JSON.stringify(value));
+  }
+
+  public getLastDrink(): string {
+    return this.lastDrink;
+  }
+
+  public setLastDrink(timeString: string): void {
+    const splitted = timeString.split(':');
+    const formatted = `${splitted[0]}:${splitted[1]}`;
+
+    this.lastDrink = formatted;
+    localStorage.setItem('_water-reminder_lastDrink', formatted);
   }
 }
 

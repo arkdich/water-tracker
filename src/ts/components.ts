@@ -7,7 +7,7 @@ export function renderProgress(done: number, goal: number): string {
 
 export function renderNewGoal(): string {
   return `
-    My Goal is
+    My goal is
     <input
     class="header__input"
     type="text"
@@ -15,7 +15,7 @@ export function renderNewGoal(): string {
     value="2.5"
     enterkeyhint="send"
     />
-    Liters
+    liters
     <button class="btn btn_control header__btn header__btn_ok"></button>`;
 }
 

@@ -64,6 +64,7 @@ export function updateUI(): void {
   updateProggres();
   updateGlass();
   updateGlassCounter();
+  updateDrinkInfo();
 }
 
 export function updateGlass(): void {
@@ -96,4 +97,16 @@ function updateGlassCounter(): void {
   const current = storage.getCurrent();
 
   glassCounter.innerText = (current.done / 200).toFixed(0);
+}
+
+function updateDrinkInfo(): void {
+  const info = document.querySelector('.drink-info__value') as HTMLSpanElement;
+  const lastDrink = storage.getLastDrink();
+
+  if (lastDrink === '') {
+    info.innerText = 'up ahead';
+    return;
+  }
+
+  info.innerText = lastDrink;
 }

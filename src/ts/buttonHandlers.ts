@@ -81,5 +81,7 @@ export function takeWater(ev: MouseEvent): void {
   }
 
   storage.setCurrent(current);
+  storage.setLastDrink(new Date().toTimeString());
+
   updateUI();
 }
