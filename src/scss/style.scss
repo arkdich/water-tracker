@@ -84,6 +84,7 @@ body {
 }
 
 .glass {
+  position: relative;
   height: 320px;
   width: 150px;
   border: 1px solid #1990f1bd;
@@ -143,6 +144,11 @@ body {
   &__btn {
     position: absolute;
     bottom: -60px;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
 
     &_left {
       left: 32.5%;

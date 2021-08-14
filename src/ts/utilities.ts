@@ -11,9 +11,21 @@ export function getDateString(start: Date, end: Date): string {
     .slice(4, 10)}`;
 }
 
-export function getFirstDate(): Date {
-  const date = storage.getPrevious()[0]?.date ?? storage.getCurrent().date;
-  return new Date(date);
+export function getMaxPages(): number {
+  const MILLISECS_IN_DAY = 86_400_000;
+
+  const firstDate = new Date(
+    storage.getPrevious()[0]?.date ?? new Date().toDateString()
+  );
+  const currDate = new Date(new Date().toDateString());
+
+  const millisecsBetween = firstDate.valueOf() - currDate.valueOf();
+
+  const daysBetween = Math.abs(millisecsBetween / MILLISECS_IN_DAY);
+
+  const maxPages = Math.ceil(daysBetween / 7) + 1;
+
+  return maxPages;
 }
 
 export function focusInput(): void {

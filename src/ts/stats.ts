@@ -2,13 +2,14 @@ import Chart from '../../node_modules/chart.js/auto/auto.esm';
 import { storage } from './class/waterStorage';
 import { renderStats } from './components';
 import { Current } from './interface/current';
-import { getDateString, getFirstDate } from './utilities';
+import { getDateString, getMaxPages } from './utilities';
 
 let currentPage = 1;
-const firstDate = getFirstDate();
+const maxPages = getMaxPages();
 let chart: Chart<'bar', { x: string; y: number }[], string>;
 
-// PAGINATION NEEDS FIXING
+let btnLeft: HTMLButtonElement;
+let btnRight: HTMLButtonElement;
 
 export function statsShow(): void {
   const statsCont = document.createElement('div');
@@ -17,6 +18,14 @@ export function statsShow(): void {
   statsCont.outerHTML = renderStats();
 
   const stats = document.querySelector('.stats') as HTMLDivElement;
+
+  btnLeft = document.querySelector('.stats__btn_left') as HTMLButtonElement;
+  btnRight = document.querySelector('.stats__btn_right') as HTMLButtonElement;
+  btnRight.disabled = true;
+
+  console.log(maxPages);
+
+  if (maxPages === 1) btnLeft.disabled = true;
 
   stats.addEventListener('click', changePage);
   document.body.addEventListener('click', statsClose);
@@ -42,11 +51,21 @@ function changePage(ev: MouseEvent): void {
   if (!target.matches('.stats__btn')) return;
 
   if (target.matches('.stats__btn_left')) {
+    if (currentPage === maxPages) return;
+
     currentPage += 1;
+    btnRight.disabled = false;
+
+    if (currentPage === maxPages) target.disabled = true;
   }
 
   if (target.matches('.stats__btn_right')) {
-    if (currentPage !== 1) currentPage -= 1;
+    if (currentPage === 1) return;
+
+    currentPage -= 1;
+    btnLeft.disabled = false;
+
+    if (currentPage === 1) target.disabled = true;
   }
 
   getPage(currentPage);
@@ -79,8 +98,6 @@ function getPage(page: number): void {
     weekStart.getMonth(),
     weekStart.getDate() + 6
   );
-
-  if (weekEnd < firstDate) return;
 
   if (getPage.caller == changePage) chart.destroy();
 
