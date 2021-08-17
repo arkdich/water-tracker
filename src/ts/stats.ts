@@ -4,6 +4,9 @@ import { renderStats } from './components';
 import { Current } from './interface/current';
 import { getDateString, getMaxPages } from './utilities';
 
+const btnStats = document.querySelector('.btn_stats') as HTMLButtonElement;
+btnStats.addEventListener('click', statsShow);
+
 let currentPage = 1;
 const maxPages = getMaxPages();
 let chart: Chart<'bar', { x: string; y: number }[], string>;
