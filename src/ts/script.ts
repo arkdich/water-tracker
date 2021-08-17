@@ -8,6 +8,7 @@ import {
   updateUI,
 } from './utilities';
 import { statsShow } from './stats';
+import '../scss/style';
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;

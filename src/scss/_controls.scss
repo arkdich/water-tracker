@@ -6,7 +6,7 @@
   -webkit-tap-highlight-color: transparent;
 
   &__minus {
-    background-image: url('/src/img/delete.svg');
+    background-image: url('../img/delete.svg');
   }
 
   &__counter {
@@ -16,7 +16,7 @@
   }
 
   &__plus {
-    background-image: url('/src/img/add.svg');
+    background-image: url('../img/add.svg');
   }
 }
 
@@ -69,12 +69,12 @@
   }
 
   &__delete {
-    background-image: url('/src/img/cancel.svg');
+    background-image: url('../img/cancel.svg');
     background-size: 25px 25px;
   }
 
   &__add {
-    background-image: url('/src/img/confirm.svg');
+    background-image: url('../img/confirm.svg');
   }
 }
 

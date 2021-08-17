@@ -73,11 +73,11 @@ body {
     border-radius: 50%;
 
     &_ok {
-      background-image: url('/src/img/confirm.svg');
+      background-image: url('../img/confirm.svg');
     }
 
     &_change {
-      background-image: url('/src/img/shuffle.svg');
+      background-image: url('../img/shuffle.svg');
       background-size: 25px 25px;
     }
   }
@@ -137,7 +137,7 @@ body {
     position: absolute;
     top: -5px;
     right: -5px;
-    background-image: url('/src/img/cancel-stats.svg');
+    background-image: url('../img/cancel-stats.svg');
     background-size: 15px 15px;
   }
 
@@ -152,12 +152,12 @@ body {
 
     &_left {
       left: 32.5%;
-      background-image: url('/src/img/left-arrow.svg');
+      background-image: url('../img/left-arrow.svg');
     }
 
     &_right {
       right: 32.5%;
-      background-image: url('/src/img/right-arrow.svg');
+      background-image: url('../img/right-arrow.svg');
     }
   }
 
