@@ -23,7 +23,10 @@ export function getMaxPages(): number {
 
   const daysBetween = Math.abs(millisecsBetween / MILLISECS_IN_DAY);
 
-  const maxPages = Math.ceil(daysBetween / 7) + 1;
+  const pagesCoeff = daysBetween / 7;
+
+  const maxPages =
+    pagesCoeff < 1 ? Math.ceil(pagesCoeff) : Math.ceil(pagesCoeff) + 1;
 
   return maxPages;
 }

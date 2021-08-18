@@ -26,8 +26,6 @@ export function statsShow(): void {
   btnRight = document.querySelector('.stats__btn_right') as HTMLButtonElement;
   btnRight.disabled = true;
 
-  console.log(maxPages);
-
   if (maxPages === 1) btnLeft.disabled = true;
 
   stats.addEventListener('click', changePage);
@@ -102,7 +100,7 @@ function getPage(page: number): void {
     weekStart.getDate() + 6
   );
 
-  if (getPage.caller == changePage) chart.destroy();
+  if (chart) chart.destroy();
 
   renderWeek(weekStart, weekEnd);
 }
@@ -161,20 +159,3 @@ function getWeek(start: Date, end: Date): Current[] {
     .getPrevious()
     .filter((day) => new Date(day.date) >= start && new Date(day.date) <= end);
 }
-
-// for (let i = 0; i < 10; i++) {
-//   if (i % 2 === 0) continue;
-
-//   const date = new Date();
-//   date.setDate(i);
-
-//   const cur: Current = {
-//     date: date.toDateString(),
-//     goal: i * 1000,
-//     done: i * 2050,
-//   };
-
-//   storage.storeCurrent(cur);
-// }
-
-// storage.setCurrent({ date: new Date().toDateString(), goal: 2500, done: 1200 });

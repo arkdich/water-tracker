@@ -58,7 +58,9 @@ a {
 
 .controls-hidden {
   & .button-control,
-  & .slider-control {
+  & .slider-control,
+  & .btn_stats,
+  & .drink-info {
     opacity: 0;
   }
 }

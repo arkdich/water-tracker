@@ -14,8 +14,9 @@ module.exports = {
     writeToDisk: true,
   },
   entry: {
-    script: './ts/script.ts',
-    stats: './ts/stats.ts',
+    shared: ['./ts/class/waterStorage', './ts/utilities', './ts/components'],
+    script: { import: './ts/script.ts', dependOn: 'shared' },
+    stats: { import: './ts/stats.ts', dependOn: 'shared' },
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
