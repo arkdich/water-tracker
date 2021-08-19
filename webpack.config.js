@@ -3,6 +3,7 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -11,6 +12,7 @@ module.exports = {
     host: '0.0.0.0',
     port: '8080',
     index: 'index.html',
+    progress: true,
     writeToDisk: true,
   },
   entry: {
@@ -22,7 +24,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
     filename: '[name].[contenthash].js',
-    assetModuleFilename: '[name].[contenthash].[ext]',
+    assetModuleFilename: '[name][ext]',
   },
   optimization: {
     splitChunks: {
@@ -63,9 +65,39 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(),
-    new HTMLWebpackPlugin({ template: './index.html' }),
+    new HTMLWebpackPlugin({
+      template: './index.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './manifest.webmanifest',
+          to: '.',
+        },
+        {
+          from: './img/favicon/apple-touch-icon.png',
+          to: '.',
+        },
+        {
+          from: './img/favicon/favicon.ico',
+          to: '.',
+        },
+        {
+          from: './img/favicon/icon-192x192.png',
+          to: '.',
+        },
+        {
+          from: './img/favicon/icon-512x512.png',
+          to: '.',
+        },
+        {
+          from: './img/favicon/icon.svg',
+          to: '.',
+        },
+      ],
     }),
   ],
 };

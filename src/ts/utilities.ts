@@ -25,8 +25,7 @@ export function getMaxPages(): number {
 
   const pagesCoeff = daysBetween / 7;
 
-  const maxPages =
-    pagesCoeff < 1 ? Math.ceil(pagesCoeff) : Math.ceil(pagesCoeff) + 1;
+  const maxPages = pagesCoeff < 1 ? 1 : Math.ceil(pagesCoeff) + 1;
 
   return maxPages;
 }
