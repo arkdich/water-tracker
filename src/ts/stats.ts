@@ -1,14 +1,16 @@
 import Chart from '../../node_modules/chart.js/auto/auto.esm';
 import { storage } from './class/waterStorage';
 import { renderStats } from './components';
-import { Current } from './interface/current';
 import { getDateString, getMaxPages } from './utilities';
 
 const btnStats = document.querySelector('.btn_stats') as HTMLButtonElement;
 btnStats.addEventListener('click', statsShow);
 
 let currentPage = 1;
-const maxPages = getMaxPages();
+
+let maxPages: number;
+getMaxPages().then((value) => (maxPages = value));
+
 let chart: Chart<'bar', { x: string; y: number }[], string>;
 
 let btnLeft: HTMLButtonElement;
@@ -105,11 +107,11 @@ function getPage(page: number): void {
   renderWeek(weekStart, weekEnd);
 }
 
-function renderWeek(start: Date, end: Date): void {
+async function renderWeek(start: Date, end: Date) {
   const ctx = document.querySelector('canvas') as HTMLCanvasElement;
   const data: { x: string; y: number }[] = [];
 
-  const chosenWeek = getWeek(start, end);
+  const chosenWeek = await storage.getWeek(start, end);
 
   if (currentPage === 1) chosenWeek.push(storage.getCurrent());
 
@@ -154,8 +156,24 @@ function renderWeek(start: Date, end: Date): void {
   });
 }
 
-function getWeek(start: Date, end: Date): Current[] {
-  return storage
-    .getPrevious()
-    .filter((day) => new Date(day.date) >= start && new Date(day.date) <= end);
-}
+// for (let i = 10; i < 21; i++) {
+//   waterDb.previous.put({
+//     date: new Date(2021, 7, i).toDateString(),
+//     goal: 2500,
+//     done: i * 50,
+//   });
+// }
+
+// waterDb.currentInfo.put({
+//   lastDrink: storage.getLastDrink() ?? '13:37',
+//   sliderValue: storage.getSliderValue(),
+// });
+
+// waterDb.previous.toArray().then(console.log);
+
+// waterDb.previous
+//   .where('done')
+//   .aboveOrEqual(200)
+//   .and((obj) => obj.done <= 600)
+//   .toArray()
+//   .then(console.log);

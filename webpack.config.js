@@ -13,7 +13,9 @@ module.exports = {
     https: true,
     host: '0.0.0.0',
     port: '8080',
-    progress: true,
+    key: path.resolve(__dirname, '192.168.100.16-key.pem'),
+    cert: path.resolve(__dirname, '192.168.100.16.pem'),
+    // progress: true,
     writeToDisk: true,
     index: 'index.html',
   },
@@ -101,9 +103,9 @@ module.exports = {
         },
       ],
     }),
-    new InjectManifest({
-      swSrc: './js/src-sw.js',
-      swDest: './sw.js',
-    }),
+    // new InjectManifest({
+    //   swSrc: './js/src-sw.js',
+    //   swDest: './sw.js',
+    // }),
   ],
 };

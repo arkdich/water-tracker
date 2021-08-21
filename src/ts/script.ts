@@ -9,11 +9,11 @@ import {
   updateUI,
 } from './utilities';
 
-if (navigator.serviceWorker) {
-  window.addEventListener('load', async () => {
-    navigator.serviceWorker.register('/sw.js');
-  });
-}
+// if (navigator.serviceWorker) {
+//   window.addEventListener('load', async () => {
+//     navigator.serviceWorker.register('/sw.js');
+//   });
+// }
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;
@@ -40,7 +40,7 @@ sliderControl.addEventListener('click', takeWater);
 
 slider.addEventListener('input', updateSliderValue);
 
-if (!currentObj.date) {
+if (!currentObj?.date) {
   header.innerHTML = renderNewGoal();
 } else {
   header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
@@ -49,7 +49,7 @@ if (!currentObj.date) {
   setSliderValueAndOutput();
 }
 
-if (currentObj.date && currentObj.date !== new Date().toDateString()) {
+if (currentObj?.date && currentObj?.date !== new Date().toDateString()) {
   storage.storeCurrent(currentObj);
   updateUI();
   setSliderValueAndOutput();

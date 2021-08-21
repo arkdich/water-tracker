@@ -1,42 +1,42 @@
 import { Current } from '../interface/current';
+import { WaterDb } from './waterDb';
 class WaterStorage {
-  private current: Current;
-  private previous: Current[];
+  private waterDb = new WaterDb();
+  private current: any;
   private sliderValue: number;
-  private lastDrink: string;
+  private lastDrink: string | undefined;
 
   constructor() {
-    this.current = JSON.parse(
-      localStorage.getItem('_water-reminder_current') ?? `{}`
+    this.waterDb.previous
+      .get({ date: new Date().toDateString() })
+      .then((value) => (this.current = value ? value : {}));
+
+    this.sliderValue = Number(
+      document.cookie
+        ?.split(';')
+        ?.find((str) => str.includes('sliderValue'))
+        ?.split('=')
+        .at(-1) ?? 120
     );
 
-    this.previous = JSON.parse(
-      localStorage.getItem('_water-reminder_previous') ?? '[]'
-    );
-
-    this.sliderValue = JSON.parse(
-      localStorage.getItem('_water-reminder_sliderValue') ?? '120'
-    );
-
-    this.lastDrink = localStorage.getItem('_water-reminder_lastDrink') ?? '';
+    this.lastDrink = document.cookie
+      ?.split(';')
+      ?.find((str) => str.includes('lastDrink'))
+      ?.split('=')
+      .at(-1);
   }
 
-  public getCurrent(): Current {
+  public getCurrent() {
     return this.current;
   }
 
-  public setCurrent(value: Current): void {
+  public setCurrent(value: Current) {
     this.current = value;
-    localStorage.setItem('_water-reminder_current', JSON.stringify(value));
+    this.waterDb.previous.put(this.current);
   }
 
-  public storeCurrent(value: Current): void {
-    this.previous.push(value);
-
-    localStorage.setItem(
-      '_water-reminder_previous',
-      JSON.stringify(this.previous)
-    );
+  public storeCurrent(value: Current) {
+    this.waterDb.previous.put(value);
 
     this.setCurrent({
       date: new Date().toDateString(),
@@ -45,29 +45,38 @@ class WaterStorage {
     });
   }
 
-  public getPrevious(): Current[] {
-    return this.previous;
+  public async getWeek(start: Date, end: Date) {
+    return await this.waterDb.previous
+      .where('date')
+      .between(start, end, true, true)
+      .toArray();
   }
 
-  public getSliderValue(): number {
+  public getSliderValue() {
     return this.sliderValue;
   }
 
-  public setSliderValue(value: number): void {
-    this.sliderValue = value;
-    localStorage.setItem('_water-reminder_sliderValue', JSON.stringify(value));
+  public setSliderValue(value: number) {
+    document.cookie = `sliderValue=${value}; max-age=${60 * 60 * 24 * 30}`;
   }
 
-  public getLastDrink(): string {
+  public getLastDrink() {
     return this.lastDrink;
   }
 
-  public setLastDrink(timeString: string): void {
+  public setLastDrink(timeString: string) {
     const splitted = timeString.split(':');
     const formatted = `${splitted[0]}:${splitted[1]}`;
 
     this.lastDrink = formatted;
-    localStorage.setItem('_water-reminder_lastDrink', formatted);
+    document.cookie = `lastDrink=${formatted}; max-age${60 * 60 * 24 * 30}`;
+  }
+
+  public async getFirstDate() {
+    const firstEntry = await this.waterDb.previous.orderBy('id').first();
+    console.log(firstEntry);
+
+    return firstEntry?.date;
   }
 }
 

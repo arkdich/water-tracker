@@ -11,12 +11,15 @@ export function getDateString(start: Date, end: Date): string {
     .slice(4, 10)}`;
 }
 
-export function getMaxPages(): number {
+export async function getMaxPages(): Promise<number> {
   const MILLISECS_IN_DAY = 86_400_000;
 
-  const firstDate = new Date(
-    storage.getPrevious()[0]?.date ?? new Date().toDateString()
-  );
+  const firstEntryDate = await storage.getFirstDate();
+
+  console.log(firstEntryDate);
+
+  const firstDate = new Date(firstEntryDate ?? new Date().toDateString());
+
   const currDate = new Date(new Date().toDateString());
 
   const millisecsBetween = firstDate.valueOf() - currDate.valueOf();
@@ -105,10 +108,10 @@ function updateDrinkInfo(): void {
   const info = document.querySelector('.drink-info__value') as HTMLSpanElement;
   const lastDrink = storage.getLastDrink();
 
-  if (lastDrink === '') {
-    info.innerText = 'up ahead';
+  if (lastDrink) {
+    info.innerText = lastDrink;
     return;
   }
 
-  info.innerText = lastDrink;
+  info.innerText = 'up ahead';
 }
