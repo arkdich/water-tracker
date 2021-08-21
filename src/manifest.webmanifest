@@ -1,7 +1,8 @@
 {
-  "theme_color": "#3494e4",
-  "background_color": "#3494e4",
+  "theme_color": "#3da6fc",
+  "background_color": "#3da6fc",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "/",
   "start_url": ".",
   "name": "Water Tracker",
