@@ -4,16 +4,18 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   devServer: {
+    https: true,
     host: '0.0.0.0',
     port: '8080',
-    index: 'index.html',
     progress: true,
     writeToDisk: true,
+    index: 'index.html',
   },
   entry: {
     shared: ['./ts/class/waterStorage', './ts/utilities', './ts/components'],
@@ -98,6 +100,10 @@ module.exports = {
           to: '.',
         },
       ],
+    }),
+    new InjectManifest({
+      swSrc: './js/src-sw.js',
+      swDest: './sw.js',
     }),
   ],
 };

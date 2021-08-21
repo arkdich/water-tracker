@@ -1,3 +1,4 @@
+import '../scss/style';
 import { goalChange, goalConfirm, takeWater } from './buttonHandlers';
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
@@ -7,7 +8,12 @@ import {
   updateSliderValue,
   updateUI,
 } from './utilities';
-import '../scss/style';
+
+if (navigator.serviceWorker) {
+  window.addEventListener('load', async () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;
