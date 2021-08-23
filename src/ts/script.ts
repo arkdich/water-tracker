@@ -24,8 +24,6 @@ const slider = document.querySelector(
   '.slider-control__slider'
 ) as HTMLInputElement;
 
-const currentObj = storage.getCurrent();
-
 header.addEventListener('click', goalConfirm);
 header.addEventListener('click', goalChange);
 header.addEventListener('keyup', (ev) => {
@@ -40,20 +38,25 @@ sliderControl.addEventListener('click', takeWater);
 
 slider.addEventListener('input', updateSliderValue);
 
-if (!currentObj?.date) {
-  header.innerHTML = renderNewGoal();
-} else {
-  header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
-  showControls(true);
-  updateUI();
-  setSliderValueAndOutput();
-}
+storage.initCurrent().then((currentObj) => {
+  if (currentObj.goal !== 0) {
+    header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
+    showControls(true);
+    updateUI();
+    setSliderValueAndOutput();
+  } else {
+    header.innerHTML = renderNewGoal();
+  }
 
-if (currentObj?.date && currentObj?.date !== new Date().toDateString()) {
-  storage.storeCurrent(currentObj);
-  updateUI();
-  setSliderValueAndOutput();
-}
+  if (
+    currentObj.date &&
+    currentObj.date.valueOf() !== new Date(new Date().toDateString()).valueOf()
+  ) {
+    storage.storeCurrent(currentObj);
+    updateUI();
+    setSliderValueAndOutput();
+  }
+});
 
 // disabling zoom on dbltap
 document.body.addEventListener('dblclick', (ev) => ev.preventDefault());

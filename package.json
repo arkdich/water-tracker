@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/arkdich/water-reminder#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
@@ -46,6 +50,8 @@
   },
   "dependencies": {
     "chart.js": "^3.5.0",
-    "dexie": "^3.0.3"
+    "core-js": "^3.16.2",
+    "dexie": "^3.0.3",
+    "regenerator-runtime": "^0.13.9"
   }
 }

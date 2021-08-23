@@ -15,12 +15,17 @@ module.exports = {
     port: '8080',
     key: path.resolve(__dirname, '192.168.100.16-key.pem'),
     cert: path.resolve(__dirname, '192.168.100.16.pem'),
-    // progress: true,
+    progress: true,
     writeToDisk: true,
     index: 'index.html',
   },
   entry: {
-    shared: ['./ts/class/waterStorage', './ts/utilities', './ts/components'],
+    shared: [
+      'regenerator-runtime/runtime.js',
+      './ts/class/waterStorage',
+      './ts/utilities',
+      './ts/components',
+    ],
     script: { import: './ts/script.ts', dependOn: 'shared' },
     stats: { import: './ts/stats.ts', dependOn: 'shared' },
   },
@@ -42,8 +47,25 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            cacheDirectory: true,
+          },
+        },
+      },
+      {
         test: /\.ts$/,
-        use: 'ts-loader',
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-typescript'],
+          },
+        },
       },
       {
         test: /\.scss$/,

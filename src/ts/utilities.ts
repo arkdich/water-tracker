@@ -16,8 +16,6 @@ export async function getMaxPages(): Promise<number> {
 
   const firstEntryDate = await storage.getFirstDate();
 
-  console.log(firstEntryDate);
-
   const firstDate = new Date(firstEntryDate ?? new Date().toDateString());
 
   const currDate = new Date(new Date().toDateString());

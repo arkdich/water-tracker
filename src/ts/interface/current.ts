@@ -1,6 +1,5 @@
 export interface Current {
-  id?: number;
-  date: string;
+  date: Date;
   goal: number;
   done: number;
 }

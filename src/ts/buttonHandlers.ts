@@ -25,7 +25,7 @@ export function goalConfirm(ev: MouseEvent): void {
   }
 
   const current = {
-    date: new Date().toDateString(),
+    date: new Date(new Date().toDateString()),
     goal: goalValue * 1000,
     done: storage.getCurrent().done ?? 0,
   };

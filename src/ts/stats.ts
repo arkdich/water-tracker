@@ -116,7 +116,7 @@ async function renderWeek(start: Date, end: Date) {
   if (currentPage === 1) chosenWeek.push(storage.getCurrent());
 
   chosenWeek.forEach((day) => {
-    data.push({ x: day.date.slice(0, 3), y: day.done });
+    data.push({ x: day.date.toDateString().slice(0, 3), y: day.done });
   });
 
   chart = new Chart(ctx, {
@@ -156,9 +156,11 @@ async function renderWeek(start: Date, end: Date) {
   });
 }
 
-// for (let i = 10; i < 21; i++) {
+// const waterDb = new WaterDb();
+
+// for (let i = 21; i > 10; i--) {
 //   waterDb.previous.put({
-//     date: new Date(2021, 7, i).toDateString(),
+//     date: new Date(2021, 7, i, 0, 0, 0, 0),
 //     goal: 2500,
 //     done: i * 50,
 //   });

@@ -2,28 +2,42 @@ import { Current } from '../interface/current';
 import { WaterDb } from './waterDb';
 class WaterStorage {
   private waterDb = new WaterDb();
-  private current: any;
+  private current: Current;
   private sliderValue: number;
   private lastDrink: string | undefined;
 
   constructor() {
-    this.waterDb.previous
-      .get({ date: new Date().toDateString() })
-      .then((value) => (this.current = value ? value : {}));
+    this.current = {
+      date: new Date(new Date().toDateString()),
+      goal: 0,
+      done: 0,
+    };
 
     this.sliderValue = Number(
       document.cookie
         ?.split(';')
         ?.find((str) => str.includes('sliderValue'))
-        ?.split('=')
-        .at(-1) ?? 120
+        ?.split('=')[1] ?? 120
     );
 
     this.lastDrink = document.cookie
       ?.split(';')
       ?.find((str) => str.includes('lastDrink'))
-      ?.split('=')
-      .at(-1);
+      ?.split('=')[1];
+  }
+
+  public async initCurrent() {
+    const cur = await this.waterDb.previous.get({
+      date: new Date(new Date().toDateString()),
+    });
+
+    this.current = cur ?? {
+      date: new Date(new Date().toDateString()),
+      goal: 0,
+      done: 0,
+    };
+
+    return this.current;
   }
 
   public getCurrent() {
@@ -39,7 +53,7 @@ class WaterStorage {
     this.waterDb.previous.put(value);
 
     this.setCurrent({
-      date: new Date().toDateString(),
+      date: new Date(new Date().toDateString()),
       goal: this.current.goal,
       done: 0,
     });
@@ -73,8 +87,7 @@ class WaterStorage {
   }
 
   public async getFirstDate() {
-    const firstEntry = await this.waterDb.previous.orderBy('id').first();
-    console.log(firstEntry);
+    const firstEntry = await this.waterDb.previous.orderBy('date').first();
 
     return firstEntry?.date;
   }

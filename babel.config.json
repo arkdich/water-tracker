@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 1%, not dead",
+        "shippedProposals": true,
+        "useBuiltIns": "usage",
+        "corejs": "3.16.2"
+      }
+    ],
+    ["@babel/preset-typescript"]
+  ]
+}
