@@ -44,6 +44,8 @@ function statsClose(ev: MouseEvent): void {
   const stats = document.querySelector('.stats') as HTMLDivElement;
   const overlay = document.querySelector('.overlay') as HTMLDivElement;
 
+  currentPage = 1;
+
   stats.remove();
   overlay.remove();
 }
@@ -155,27 +157,3 @@ async function renderWeek(start: Date, end: Date): Promise<void> {
     },
   });
 }
-
-// const waterDb = new WaterDb();
-
-// for (let i = 21; i > 15; i--) {
-//   waterDb.previous.put({
-//     date: new Date(2021, 7, i, 0, 0, 0, 0),
-//     goal: 2500,
-//     done: i * 50,
-//   });
-// }
-
-// waterDb.currentInfo.put({
-//   lastDrink: storage.getLastDrink() ?? '13:37',
-//   sliderValue: storage.getSliderValue(),
-// });
-
-// waterDb.previous.toArray().then(console.log);
-
-// waterDb.previous
-//   .where('done')
-//   .aboveOrEqual(200)
-//   .and((obj) => obj.done <= 600)
-//   .toArray()
-//   .then(console.log);

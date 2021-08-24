@@ -1,6 +1,5 @@
 import '../scss/style';
 import { goalChange, goalConfirm, takeWater } from './buttonHandlers';
-import { WaterDb } from './class/waterDb';
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
 import {
@@ -49,14 +48,6 @@ storage.initCurrent().then((currentObj) => {
     header.innerHTML = renderNewGoal();
   }
 });
-
-// const waterDb = new WaterDb();
-
-// waterDb.previous.put({
-//   date: new Date(2021, 7, 23, 0, 0, 0, 0),
-//   goal: 2600,
-//   done: 2300,
-// });
 
 // disabling zoom on dbltap
 document.body.addEventListener('dblclick', (ev) => ev.preventDefault());

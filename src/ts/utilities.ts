@@ -13,20 +13,28 @@ export function getDateString(start: Date, end: Date): string {
 
 export async function getMaxPages(): Promise<number> {
   const MILLISECS_IN_DAY = 86_400_000;
-
-  const firstEntryDate = await storage.getFirstDate();
-
-  const firstDate = new Date(firstEntryDate ?? new Date().setHours(0, 0, 0, 0));
+  let maxPages: number;
 
   const currDate = new Date(new Date().setHours(0, 0, 0, 0));
+  const firstEntryDate = await storage.getFirstDate();
 
-  const millisecsBetween = firstDate.valueOf() - currDate.valueOf();
+  const firstDate = firstEntryDate ?? currDate;
 
-  const daysBetween = Math.abs(millisecsBetween / MILLISECS_IN_DAY);
+  const currentWeekDay = currDate.getDay() === 0 ? 1 : currDate.getDay() - 1;
 
-  const pagesCoeff = daysBetween / 7;
+  const weekStart = new Date(
+    currDate.getFullYear(),
+    currDate.getMonth(),
+    currDate.getDate() - currentWeekDay
+  );
 
-  const maxPages = pagesCoeff < 1 ? 1 : Math.ceil(pagesCoeff) + 1;
+  const millisecsBetween = firstDate.valueOf() - weekStart.valueOf();
+  const daysBetween = millisecsBetween / MILLISECS_IN_DAY;
+
+  const pagesCoeff = Math.abs(daysBetween / 7);
+
+  if (daysBetween >= 0) maxPages = 1;
+  else maxPages = Math.ceil(pagesCoeff) + 1;
 
   return maxPages;
 }
