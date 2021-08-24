@@ -102,12 +102,10 @@ function getPage(page: number): void {
     weekStart.getDate() + 6
   );
 
-  if (chart) chart.destroy();
-
   renderWeek(weekStart, weekEnd);
 }
 
-async function renderWeek(start: Date, end: Date) {
+async function renderWeek(start: Date, end: Date): Promise<void> {
   const ctx = document.querySelector('canvas') as HTMLCanvasElement;
   const data: { x: string; y: number }[] = [];
 
@@ -118,6 +116,8 @@ async function renderWeek(start: Date, end: Date) {
   chosenWeek.forEach((day) => {
     data.push({ x: day.date.toDateString().slice(0, 3), y: day.done });
   });
+
+  if (chart) chart.destroy();
 
   chart = new Chart(ctx, {
     type: 'bar',
@@ -158,7 +158,7 @@ async function renderWeek(start: Date, end: Date) {
 
 // const waterDb = new WaterDb();
 
-// for (let i = 21; i > 10; i--) {
+// for (let i = 21; i > 15; i--) {
 //   waterDb.previous.put({
 //     date: new Date(2021, 7, i, 0, 0, 0, 0),
 //     goal: 2500,

@@ -4,11 +4,11 @@ class WaterStorage {
   private waterDb = new WaterDb();
   private current: Current;
   private sliderValue: number;
-  private lastDrink: string | undefined;
+  private lastDrink: string;
 
   constructor() {
     this.current = {
-      date: new Date(new Date().toDateString()),
+      date: new Date(new Date().setHours(0, 0, 0, 0)),
       goal: 0,
       done: 0,
     };
@@ -17,27 +17,33 @@ class WaterStorage {
       document.cookie
         ?.split(';')
         ?.find((str) => str.includes('sliderValue'))
-        ?.split('=')[1] ?? 120
+        ?.split('=')[1] ?? 125
     );
 
-    this.lastDrink = document.cookie
-      ?.split(';')
-      ?.find((str) => str.includes('lastDrink'))
-      ?.split('=')[1];
+    this.lastDrink =
+      document.cookie
+        ?.split(';')
+        ?.find((str) => str.includes('lastDrink'))
+        ?.split('=')[1] ?? 'up ahead';
   }
 
   public async initCurrent() {
-    const cur = await this.waterDb.previous.get({
-      date: new Date(new Date().toDateString()),
-    });
+    const cur = await this.waterDb.previous.get(
+      new Date(new Date().setHours(0, 0, 0, 0))
+    );
 
-    this.current = cur ?? {
-      date: new Date(new Date().toDateString()),
-      goal: 0,
-      done: 0,
-    };
+    if (cur) {
+      this.current = cur;
+      return this.current;
+    } else {
+      const lastEtnry = await this.waterDb.previous.orderBy('date').last();
 
-    return this.current;
+      if (lastEtnry) {
+        this.current.goal = lastEtnry.goal;
+      }
+
+      return this.current;
+    }
   }
 
   public getCurrent() {
@@ -47,16 +53,6 @@ class WaterStorage {
   public setCurrent(value: Current) {
     this.current = value;
     this.waterDb.previous.put(this.current);
-  }
-
-  public storeCurrent(value: Current) {
-    this.waterDb.previous.put(value);
-
-    this.setCurrent({
-      date: new Date(new Date().toDateString()),
-      goal: this.current.goal,
-      done: 0,
-    });
   }
 
   public async getWeek(start: Date, end: Date) {

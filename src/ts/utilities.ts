@@ -16,9 +16,9 @@ export async function getMaxPages(): Promise<number> {
 
   const firstEntryDate = await storage.getFirstDate();
 
-  const firstDate = new Date(firstEntryDate ?? new Date().toDateString());
+  const firstDate = new Date(firstEntryDate ?? new Date().setHours(0, 0, 0, 0));
 
-  const currDate = new Date(new Date().toDateString());
+  const currDate = new Date(new Date().setHours(0, 0, 0, 0));
 
   const millisecsBetween = firstDate.valueOf() - currDate.valueOf();
 
@@ -64,7 +64,7 @@ export function updateSliderValue(ev: Event): void {
 }
 
 export function updateUI(): void {
-  updateProggres();
+  updateProgress();
   updateGlass();
   updateGlassCounter();
   updateDrinkInfo();
@@ -86,7 +86,7 @@ export function updateGlass(): void {
   glassPerc.innerText = `${donePercent.toFixed(1)}%`;
 }
 
-function updateProggres(): void {
+function updateProgress(): void {
   const headerDone = document.querySelector('.header__done') as HTMLSpanElement;
   const current = storage.getCurrent();
 
@@ -106,10 +106,5 @@ function updateDrinkInfo(): void {
   const info = document.querySelector('.drink-info__value') as HTMLSpanElement;
   const lastDrink = storage.getLastDrink();
 
-  if (lastDrink) {
-    info.innerText = lastDrink;
-    return;
-  }
-
-  info.innerText = 'up ahead';
+  info.innerText = lastDrink;
 }

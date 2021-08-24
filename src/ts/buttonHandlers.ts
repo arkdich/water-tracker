@@ -19,15 +19,17 @@ export function goalConfirm(ev: MouseEvent): void {
 
   const goalValue = Number(Number(goalInput.value).toFixed(1));
 
-  if (goalValue === 0 || isNaN(goalValue)) {
+  if (goalValue <= 0 || isNaN(goalValue)) {
     goalInput.setCustomValidity('yo man');
     return;
   }
 
+  const storedCurrent = storage.getCurrent();
+
   const current = {
-    date: new Date(new Date().toDateString()),
+    date: storedCurrent.date,
     goal: goalValue * 1000,
-    done: storage.getCurrent().done ?? 0,
+    done: storedCurrent.done,
   };
 
   showControls(true);
