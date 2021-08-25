@@ -38,16 +38,27 @@ sliderControl.addEventListener('click', takeWater);
 
 slider.addEventListener('input', updateSliderValue);
 
-storage.initCurrent().then((currentObj) => {
-  if (currentObj.goal !== 0) {
-    header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
-    showControls(true);
-    updateUI();
-    setSliderValueAndOutput();
-  } else {
-    header.innerHTML = renderNewGoal();
-  }
-});
+storage
+  .initCurrent()
+  .then((currentObj) => {
+    if (currentObj.goal !== 0) {
+      header.innerHTML = renderProgress(currentObj.done, currentObj.goal);
+      showControls(true);
+      updateUI();
+      setSliderValueAndOutput();
+    } else {
+      header.innerHTML = renderNewGoal();
+    }
+  })
+  .finally(() => {
+    const overlay = document.querySelector(
+      '.loading-overlay'
+    ) as HTMLDivElement;
+
+    setTimeout(() => {
+      overlay.remove();
+    }, 350);
+  });
 
 // disabling zoom on dbltap
 document.body.addEventListener('dblclick', (ev) => ev.preventDefault());

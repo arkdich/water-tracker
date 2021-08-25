@@ -131,6 +131,7 @@ body {
   width: 80%;
   max-width: 400px;
   height: 65%;
+  max-height: 500px;
   padding: 15px;
   border-radius: 10px;
   background-color: #fff;
@@ -198,6 +199,15 @@ body {
   &__link {
     font-weight: 400;
   }
+}
+
+.loading-overlay {
+  @extend .overlay;
+  background-color: #3da6fc;
+  background-image: url('../img/favicon/icon.svg');
+  background-size: 30% 30%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @import '_controls', '_media';
