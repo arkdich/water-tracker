@@ -1,5 +1,5 @@
 {
-  "name": "water-reminder",
+  "name": "water-tracker",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/arkdich/water-reminder.git"
+    "url": "git+ssh://git@github.com/arkdich/water-tracker.git"
   },
   "author": "arkdich",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arkdich/water-reminder/issues"
+    "url": "https://github.com/arkdich/water-tracker/issues"
   },
-  "homepage": "https://github.com/arkdich/water-reminder#readme",
+  "homepage": "https://github.com/arkdich/water-tracker#readme",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",

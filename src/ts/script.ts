@@ -9,11 +9,11 @@ import {
   updateUI,
 } from './utilities';
 
-// if (navigator.serviceWorker) {
-//   window.addEventListener('load', async () => {
-//     navigator.serviceWorker.register('/sw.js');
-//   });
-// }
+if (navigator.serviceWorker) {
+  window.addEventListener('load', async () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;

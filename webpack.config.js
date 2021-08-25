@@ -125,9 +125,9 @@ module.exports = {
         },
       ],
     }),
-    // new InjectManifest({
-    //   swSrc: './js/src-sw.js',
-    //   swDest: './sw.js',
-    // }),
+    new InjectManifest({
+      swSrc: './js/srcSw.js',
+      swDest: './sw.js',
+    }),
   ],
 };
