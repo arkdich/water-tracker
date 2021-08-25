@@ -11,7 +11,7 @@ import {
 
 if (navigator.serviceWorker) {
   window.addEventListener('load', async () => {
-    navigator.serviceWorker.register('/sw.js');
+    navigator.serviceWorker.register('/water-tracker/sw.js');
   });
 }
 
