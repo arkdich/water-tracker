@@ -6,7 +6,7 @@
     "start": "webpack serve",
     "dev": "webpack --mode development",
     "build": "webpack --mode production --no-devtool",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist --branch pages",
     "predeploy": "npm run build"
   },
   "repository": {
