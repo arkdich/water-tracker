@@ -78,7 +78,7 @@ function changePage(ev: MouseEvent): void {
 
 function getPage(page: number): void {
   const today = new Date();
-  const currentWeekDay = today.getDay() === 0 ? 1 : today.getDay() - 1;
+  const currentWeekDay = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
   let weekStart: Date;
 
@@ -112,8 +112,6 @@ async function renderWeek(start: Date, end: Date): Promise<void> {
   const data: { x: string; y: number }[] = [];
 
   const chosenWeek = await storage.getWeek(start, end);
-
-  if (currentPage === 1) chosenWeek.push(storage.getCurrent());
 
   chosenWeek.forEach((day) => {
     data.push({ x: day.date.toDateString().slice(0, 3), y: day.done });
