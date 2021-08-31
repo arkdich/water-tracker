@@ -39,6 +39,10 @@ export async function getMaxPages(): Promise<number> {
   return maxPages;
 }
 
+export function isStandalone(): boolean {
+  return window.matchMedia('(display-mode: standalone)').matches;
+}
+
 export function focusInput(): void {
   const headerInput = document.querySelector(
     '.header__input'

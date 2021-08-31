@@ -123,6 +123,42 @@ module.exports = {
           from: './img/favicon/icon.svg',
           to: '.',
         },
+        {
+          from: './img/splashscreens/ipad_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/ipadpro1_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/ipadpro2_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/ipadpro3_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/iphone6_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/iphoneplus_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/iphonex_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/iphonexr_splash.png',
+          to: '.',
+        },
+        {
+          from: './img/splashscreens/iphonexsmax_splash.png',
+          to: '.',
+        },
       ],
     }),
     new InjectManifest({

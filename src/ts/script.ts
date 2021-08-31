@@ -3,6 +3,7 @@ import { goalChange, goalConfirm, takeWater } from './buttonHandlers';
 import { storage } from './class/waterStorage';
 import { renderNewGoal, renderProgress } from './components';
 import {
+  isStandalone,
   setSliderValueAndOutput,
   showControls,
   updateSliderValue,
@@ -14,6 +15,10 @@ if (navigator.serviceWorker) {
     navigator.serviceWorker.register('/water-tracker/sw.js');
   });
 }
+
+const overlay = document.querySelector('.loading-overlay') as HTMLDivElement;
+
+if (isStandalone()) overlay.remove();
 
 const header = document.querySelector('.header') as HTMLDivElement;
 const btnControl = document.querySelector('.button-control') as HTMLDivElement;
@@ -51,9 +56,7 @@ storage
     }
   })
   .finally(() => {
-    const overlay = document.querySelector(
-      '.loading-overlay'
-    ) as HTMLDivElement;
+    if (isStandalone()) return;
 
     setTimeout(() => {
       overlay.remove();
