@@ -62,3 +62,12 @@ storage
 
 // disabling zoom on dbltap
 document.body.addEventListener('dblclick', (ev) => ev.preventDefault());
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') return;
+
+  const currentDate = new Date().toDateString();
+  const storedDate = storage.getCurrent().date.toDateString();
+
+  if (currentDate !== storedDate) location.reload();
+});
