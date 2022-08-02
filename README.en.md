@@ -1,4 +1,4 @@
-### [Читать на русском](/arkdich/water-tracker/blob/main/README.md)
+### [Читать на русском](/README.md)
 # About
 Water tracker progressive web app with detailed statistics
 

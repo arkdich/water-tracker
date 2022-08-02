@@ -1,4 +1,4 @@
-### [Read in English](/arkdich/water-tracker/blob/main/README.en.md)
+### [Read in English](/README.en.md)
 # About
 PWA для ослеживания количества выпитой воды с детальной статистикой
 
