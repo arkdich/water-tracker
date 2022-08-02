@@ -1,36 +1,34 @@
+### [Read in English](/arkdich/water-tracker/blob/main/README.en.md)
 # About
-Water tracker progressive web app with detailed statistics
+PWA для ослеживания количества выпитой воды с детальной статистикой
 
-- written with typescript
-- styled with scss
-- bundled with webpack
-- uses service workers for offline work
-- stores data in [IndexedDb](https://github.com/dexie/Dexie.js), renders chart with [Chart.js](https://github.com/chartjs/Chart.js)
+- написал на typescript
+- стилизовал с scss
+- собрал вебпаком
+- использовал сервис воркеры для кеширования и работы в офлайне
+- данные хранятся в [IndexedDb](https://github.com/dexie/Dexie.js), график рендерится при помощи [Chart.js](https://github.com/chartjs/Chart.js)
 
 
-## See [Live Demo](https://arkdich.github.io/water-tracker/)
+## [Онлайн демка](https://arkdich.github.io/water-tracker/)
 
 # Features
-- allows to set, change and fill current goal
+- установка, смена и заполнение цели
 
   ![](https://i.imgur.com/HsgKTRM.gif)
   
-- view week chart
+- просмотр статистики за неделю
   
   ![](https://i.imgur.com/5HPLyO1.gif)
   
  # Installation
- Clone this repo and install dependencies
+ Склонируйте репозиторий и установите зависимости
  ```
  git clone git@github.com:arkdich/water-tracker.git
  ```
  ```
  npm i
  ```
- Start dev server
+ Запустите dev сервер
  ```
  npm start
  ```
-
- 
-
